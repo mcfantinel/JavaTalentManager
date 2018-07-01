@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence                             http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
+  <persistence-unit name="HBPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+
+    <class>model.TestEntity</class>
+    <class>model.AcademicDegrees</class>
+    <class>model.Applicants</class>
+    <class>model.ApplicantsSkills</class>
+    <class>model.Companies</class>
+    <class>model.JobOffers</class>
+    <class>model.JobOffersSkills</class>
+    <class>model.Skills</class>
+
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/PeopleWare" />
+      <property name="javax.persistence.jdbc.user" value="postgres" />
+      <property name="javax.persistence.jdbc.password" value="1234" />
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" />
+
+      <!-- Log SQL queries -->
+      <property name="hibernate.format_sql" value="true" />
+      <property name="hibernate.use_sql_comments" value="true" />
+
+      <!-- drop-and-create / none -->
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+       <!-- Use only classes specified in MAPPINGS -->
+      <property name="hibernate.archive.autodetection" value="none" />
+    </properties>
+  </persistence-unit>
+</persistence>

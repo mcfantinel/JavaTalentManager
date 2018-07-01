@@ -14,9 +14,9 @@ import model.Users;
 
 public class DBConnection {
 
-	private static final String jdbcUrl = "jdbc:postgresql://localhost:5432/JavaTest";
+	private static final String jdbcUrl = "jdbc:postgresql://localhost:5432/PeopleWare";
 	private static final String username = "postgres";
-	private static final String password = "admin";
+	private static final String password = "1234";
 
 	public static List<Users> executeSelect(String query) {
 		Connection conn = null;
