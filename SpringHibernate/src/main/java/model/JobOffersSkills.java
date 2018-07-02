@@ -21,7 +21,7 @@ public class JobOffersSkills {
 	@Column(name = "scale", nullable = false)
 	private int scale;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "skill_id", nullable = false)
 	private Skills skill;
 

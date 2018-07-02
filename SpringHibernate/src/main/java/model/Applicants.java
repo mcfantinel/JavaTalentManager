@@ -36,11 +36,11 @@ public class Applicants {
 	private WorkingTime workingTime;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "academic_degree_id", nullable = false)
 	private AcademicDegrees academicDegree;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "applicant_id", nullable = false)
 	private List<ApplicantsSkills> applicantSkills;
 	

@@ -23,9 +23,14 @@ public class ApplicantsController {
 
 	@RequestMapping(value = "/applicants", method = RequestMethod.GET)
 	public String listApplicants(Model model) {
-		model.addAttribute("applicant", new Applicants());
+		//model.addAttribute("applicant", new Applicants());
 		model.addAttribute("listApplicants", this.applicantsService.listApplicants());
-		return "applicants";
+		return "listApplicants";
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Model model) {
+		return "test";
 	}
 
 }
