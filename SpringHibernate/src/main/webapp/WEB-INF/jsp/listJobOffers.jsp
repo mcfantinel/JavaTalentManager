@@ -14,7 +14,7 @@
 <style type="text/css">
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>People-Ware - List Applicants</title>
+<title>People-Ware - List Job Offers</title>
 </head>
 
 <body>
@@ -22,15 +22,17 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-				<span class="lead">Applicants</span>
+				<span class="lead">Job Offers</span>
 			</div>
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Email</th>
+						<th>Description</th>
+						<th>Company Name</th>
 						<th>Contact Number</th>
 						<th>Minimum Salary</th>
+						<th>Maximum Salary</th>
 						<th>Working Time</th>
 						<th>Academic Degree</th>
 						<th width="100"></th>
@@ -38,17 +40,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${listApplicants}" var="applicant">
+					<c:forEach items="${listJobOffers}" var="jobOffer">
 						<tr>
-							<td>${applicant.fullName}</td>
-							<td>${applicant.email}</td>
-							<td>${applicant.phone}</td>
-							<td>${applicant.minSalary}</td>
-							<td>${applicant.workingTime}</td>
-							<td>${applicant.academicDegree.name}</td>
-							<td><a href="<c:url value='/applicants/show/${applicant.id}' />"
+							<td>${jobOffer.name}</td>
+							<td>${jobOffer.description}</td>
+							<td>${jobOffer.company.name}</td>
+							<td>${jobOffer.company.phone}</td>
+							<td>${jobOffer.minSalary}</td>
+							<td>${jobOffer.maxSalary}</td>
+							<td>${jobOffer.workingTime}</td>
+							<td>${jobOffer.academicDegree.name}</td>
+							<td><a href="<c:url value='/jobOffers/show/${jobOffer.id}' />"
 								class="btn btn-success custom-width">view</a></td>
-							<td><a href="<c:url value='/applicants/remove/${applicant.id}' />"
+							<td><a href="<c:url value='/jobOffers/remove/${jobOffer.id}' />"
 								class="btn btn-danger custom-width">delete</a></td>
 						</tr>
 					</c:forEach>
@@ -56,7 +60,7 @@
 			</table>
 		</div>
 		<div class="well">
-			<a href="<c:url value='/applicants/addApplicants' />" class="btn btn-default custom-width">New Applicant</a>
+			<a href="<c:url value='/jobOffers/addJobOffers' />" class="btn btn-default custom-width">New Job Offer</a>
 		</div>
 	</div>
 </body>

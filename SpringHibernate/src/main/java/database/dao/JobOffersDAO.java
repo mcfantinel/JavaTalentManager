@@ -8,6 +8,7 @@ public interface JobOffersDAO {
 	public void addJobOffer(JobOffers jobOffer);
 	public void updateJobOffer(JobOffers jobOffer);
 	public List<JobOffers> listJobOffers();
-	public JobOffers getJobOfferById(int id);
-	public void removeJobOffer(int id);
+	public JobOffers getJobOfferById(long id);
+	public void removeJobOffer(long id);
+	public List<JobOffers> getJobOfferBySalaryAndAcademicDegree(float salary, long acadmicDegreeId);
 }

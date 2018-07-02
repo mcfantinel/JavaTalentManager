@@ -40,6 +40,10 @@ public class JobOffers {
     @JoinColumn(name = "academic_degree_id", nullable = false)
 	private AcademicDegrees academicDegree;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", nullable = false)
+	private Companies company;
+	
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "job_offer_id", nullable = false)
 	private List<JobOffersSkills> jobOfferSkills;
@@ -98,6 +102,11 @@ public class JobOffers {
 	public Long getId() {
 		return id;
 	}
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public List<JobOffersSkills> getJobOfferSkills() {
 		return jobOfferSkills;
@@ -105,6 +114,49 @@ public class JobOffers {
 
 	public void setJobOfferSkills(List<JobOffersSkills> jobOfferSkills) {
 		this.jobOfferSkills = jobOfferSkills;
+	}
+	
+
+	public Companies getCompany() {
+		return company;
+	}
+
+	public void setCompany(Companies company) {
+		this.company = company;
+	}
+
+	public QualifiedJobOffers verifyIfJobOfferIsValidForApplicant(List<ApplicantsSkills> applicantSkills) {
+		int totalPoints = 0;
+		
+		for(JobOffersSkills jobOfferSkill : this.getJobOfferSkills()) {
+			if(!applicantSkills.stream().anyMatch(a -> a.getSkill().getId() == jobOfferSkill.getSkill().getId() 
+					&& a.getScale() >= jobOfferSkill.getScale())) {
+				return null;
+			} else {
+				totalPoints += applicantSkills.stream().filter(a -> a.getSkill().getId() == jobOfferSkill.getSkill().getId())
+						.findAny().orElse(null).getScale();
+			}
+		}
+		
+		return new QualifiedJobOffers(this, totalPoints);		
+	}
+	
+	public QualifiedApplicants verifyIfApplicantIsValidForJobOffer(Applicants applicant) {
+		int totalPoints = 0;
+		
+		List<ApplicantsSkills> applicantSkills = applicant.getApplicantSkills();
+		
+		for(JobOffersSkills jobOfferSkill : this.getJobOfferSkills()) {
+			if(!applicantSkills.stream().anyMatch(a -> a.getSkill().getId() == jobOfferSkill.getSkill().getId() 
+					&& a.getScale() >= jobOfferSkill.getScale())) {
+				return null;
+			} else {
+				totalPoints += applicantSkills.stream().filter(a -> a.getSkill().getId() == jobOfferSkill.getSkill().getId())
+						.findAny().orElse(null).getScale();
+			}
+		}
+		
+		return new QualifiedApplicants(applicant, totalPoints);		
 	}
 	
 

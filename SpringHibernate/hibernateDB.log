@@ -708,3 +708,167 @@ org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: miss
             (?, ?)
 [13:46:13] binding parameter [1] as [VARCHAR] - [super foo]
 [13:46:13] binding parameter [2] as [BIGINT] - [1]
+[02:29:07] starting application....
+[02:29:07] Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[02:29:09] 
+    alter table APPLICANTS 
+        drop constraint FK_swq6jwx632dp9ovijsh01f7ay
+[02:29:09] 
+    alter table APPLICANTS_SKILLS 
+        drop constraint FK_td96jgsbhciq01a4vq3fd120u
+[02:29:09] 
+    alter table APPLICANTS_SKILLS 
+        drop constraint FK_7h371k2tywv6lw4ewxtx11p1c
+[02:29:09] 
+    alter table JOB_OFFERS 
+        drop constraint FK_46vrenp5y3vov948y189ieutl
+[02:29:09] 
+    alter table JOB_OFFERS 
+        drop constraint FK_nhjo0xtcaayr62ppexwtlek0n
+[02:29:09] 
+    alter table JOB_OFFERS_SKILLS 
+        drop constraint FK_hv9r91cm0xfqxt44sy7enhp38
+[02:29:09] 
+    alter table JOB_OFFERS_SKILLS 
+        drop constraint FK_71s0f829j42am986q919ylxia
+[02:29:09] 
+    drop table if exists ACADEMIC_DEGREES cascade
+[02:29:09] 
+    drop table if exists APPLICANTS cascade
+[02:29:09] 
+    drop table if exists APPLICANTS_SKILLS cascade
+[02:29:09] 
+    drop table if exists COMPANIES cascade
+[02:29:09] 
+    drop table if exists JOB_OFFERS cascade
+[02:29:09] 
+    drop table if exists JOB_OFFERS_SKILLS cascade
+[02:29:09] 
+    drop table if exists SKILLS cascade
+[02:29:09] 
+    drop table if exists test cascade
+[02:29:09] 
+    drop sequence hibernate_sequence
+[02:29:09] 
+    create table ACADEMIC_DEGREES (
+        id int8 not null,
+        name varchar(50),
+        primary key (id)
+    )
+[02:29:10] 
+    create table APPLICANTS (
+        id int8 not null,
+        email varchar(50) not null,
+        fullName varchar(80) not null,
+        min_salary float4 not null,
+        phone varchar(20) not null,
+        working_time int4 not null,
+        academic_degree_id int8 not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table APPLICANTS_SKILLS (
+        id int8 not null,
+        scale int4 not null,
+        skill_id int8 not null,
+        applicant_id int8 not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table COMPANIES (
+        id int8 not null,
+        name varchar(80) not null,
+        phone varchar(20) not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table JOB_OFFERS (
+        id int8 not null,
+        description varchar(200) not null,
+        max_salary float4 not null,
+        min_salary float4 not null,
+        name varchar(50) not null,
+        working_time int4 not null,
+        academic_degree_id int8 not null,
+        company_id int8 not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table JOB_OFFERS_SKILLS (
+        id int8 not null,
+        scale int4 not null,
+        skill_id int8 not null,
+        job_offer_id int8 not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table SKILLS (
+        id int8 not null,
+        skill varchar(50) not null,
+        primary key (id)
+    )
+[02:29:10] 
+    create table test (
+        id int8 not null,
+        name varchar(255),
+        primary key (id)
+    )
+[02:29:10] 
+    alter table ACADEMIC_DEGREES 
+        add constraint UK_i9249ji0khk3oeojvioh9khm0  unique (name)
+[02:29:10] 
+    alter table SKILLS 
+        add constraint UK_fyl7impdnqfwul5qahsule996  unique (skill)
+[02:29:10] 
+    alter table test 
+        add constraint UK_1chowmbf27f0cbp7on9ysvhjo  unique (name)
+[02:29:10] 
+    alter table APPLICANTS 
+        add constraint FK_swq6jwx632dp9ovijsh01f7ay 
+        foreign key (academic_degree_id) 
+        references ACADEMIC_DEGREES
+[02:29:10] 
+    alter table APPLICANTS_SKILLS 
+        add constraint FK_td96jgsbhciq01a4vq3fd120u 
+        foreign key (skill_id) 
+        references SKILLS
+[02:29:10] 
+    alter table APPLICANTS_SKILLS 
+        add constraint FK_7h371k2tywv6lw4ewxtx11p1c 
+        foreign key (applicant_id) 
+        references APPLICANTS
+[02:29:10] 
+    alter table JOB_OFFERS 
+        add constraint FK_46vrenp5y3vov948y189ieutl 
+        foreign key (academic_degree_id) 
+        references ACADEMIC_DEGREES
+[02:29:10] 
+    alter table JOB_OFFERS 
+        add constraint FK_nhjo0xtcaayr62ppexwtlek0n 
+        foreign key (company_id) 
+        references COMPANIES
+[02:29:10] 
+    alter table JOB_OFFERS_SKILLS 
+        add constraint FK_hv9r91cm0xfqxt44sy7enhp38 
+        foreign key (skill_id) 
+        references SKILLS
+[02:29:10] 
+    alter table JOB_OFFERS_SKILLS 
+        add constraint FK_71s0f829j42am986q919ylxia 
+        foreign key (job_offer_id) 
+        references JOB_OFFERS
+[02:29:10] 
+    create sequence hibernate_sequence
+[02:29:11] 
+    select
+        nextval ('hibernate_sequence')
+[02:29:11] 
+    /* insert model.TestEntity
+        */ insert 
+        into
+            test
+            (name, id) 
+        values
+            (?, ?)
+[02:29:11] binding parameter [1] as [VARCHAR] - [super foo]
+[02:29:11] binding parameter [2] as [BIGINT] - [1]

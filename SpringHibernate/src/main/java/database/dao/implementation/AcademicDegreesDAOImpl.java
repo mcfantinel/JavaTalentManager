@@ -23,7 +23,7 @@ public class AcademicDegreesDAOImpl implements AcademicDegreesDAO {
 	@Override
 	public List<AcademicDegrees> listAcademicDegrees() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<AcademicDegrees> academicDegreesList = session.createQuery("from Academic_Degrees").list();
+		List<AcademicDegrees> academicDegreesList = session.createQuery("from AcademicDegrees").list();
 		for(AcademicDegrees academicDegree : academicDegreesList){
 			logger.info("AcademicDegrees List:"+academicDegree);
 		}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import database.dao.ApplicantsDAO;
 import model.Applicants;
+import model.JobOffers;
 
 @Repository
 public class ApplicantsDAOImpl implements ApplicantsDAO {
@@ -47,21 +48,37 @@ public class ApplicantsDAOImpl implements ApplicantsDAO {
 	}
 
 	@Override
-	public Applicants getApplicantById(int id) {
+	public Applicants getApplicantById(long id) {
 		Session session = this.sessionFactory.getCurrentSession();		
-		Applicants applicant = (Applicants) session.load(Applicants.class, new Integer(id));
+		Applicants applicant = (Applicants) session.load(Applicants.class, new Long(id));
 		logger.info("Applicants loaded successfully, Applicants details="+applicant);
 		return applicant;
 	}
 
 	@Override
-	public void removeApplicant(int id) {
+	public void removeApplicant(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Applicants applicant = (Applicants) session.load(Applicants.class, new Integer(id));
+		Applicants applicant = (Applicants) session.load(Applicants.class, new Long(id));
 		if(null != applicant){
 			session.delete(applicant);
 		}
 		logger.info("Applicants deleted successfully, person details="+applicant);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Applicants> getApplicantsBySalaryAndAcademicDegree(float maxSalary, Long acadmicDegreeId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Applicants> applicantsList = session.createQuery("from Applicants AP"
+				+ " WHERE AP.academicDegree.id = :acad_deg_id " + 
+				" AND AP.minSalary <= :maxSalary ")
+				.setParameter("acad_deg_id", acadmicDegreeId)
+				.setParameter("maxSalary", maxSalary)
+				.list();
+		for(Applicants applicant : applicantsList){
+			logger.info("Applicants List:"+applicant);
+		}
+		return applicantsList;
 	}
 
 }

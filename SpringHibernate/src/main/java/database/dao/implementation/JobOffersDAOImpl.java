@@ -36,7 +36,7 @@ public class JobOffersDAOImpl implements JobOffersDAO {
 	@Override
 	public List<JobOffers> listJobOffers() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<JobOffers> jobOffersList = session.createQuery("from Job_Offers").list();
+		List<JobOffers> jobOffersList = session.createQuery("from JobOffers").list();
 		for(JobOffers jobOffer : jobOffersList){
 			logger.info("JobOffers List:"+jobOffer);
 		}
@@ -44,20 +44,36 @@ public class JobOffersDAOImpl implements JobOffersDAO {
 	}
 
 	@Override
-	public JobOffers getJobOfferById(int id) {
+	public JobOffers getJobOfferById(long id) {
 		Session session = this.sessionFactory.getCurrentSession();		
-		JobOffers jobOffer = (JobOffers) session.load(JobOffers.class, new Integer(id));
+		JobOffers jobOffer = (JobOffers) session.load(JobOffers.class, new Long(id));
 		logger.info("JobOffers loaded successfully, JobOffers details="+jobOffer);
 		return jobOffer;
 	}
 
 	@Override
-	public void removeJobOffer(int id) {
+	public void removeJobOffer(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		JobOffers jobOffer = (JobOffers) session.load(JobOffers.class, new Integer(id));
+		JobOffers jobOffer = (JobOffers) session.load(JobOffers.class, new Long(id));
 		if(null != jobOffer){
 			session.delete(jobOffer);
 		}
 		logger.info("JobOffers deleted successfully, person details="+jobOffer);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<JobOffers> getJobOfferBySalaryAndAcademicDegree(float salary, long acadmicDegreeId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<JobOffers> jobOffersList = session.createQuery("from JobOffers JO "
+				+ " WHERE JO.academicDegree.id = :acad_deg_id " + 
+				" AND :salary BETWEEN JO.minSalary AND JO.maxSalary")
+				.setParameter("acad_deg_id", acadmicDegreeId)
+				.setParameter("salary", salary)
+				.list();
+		for(JobOffers jobOffer : jobOffersList){
+			logger.info("JobOffers List:"+jobOffer);
+		}
+		return jobOffersList;
 	}
 }
