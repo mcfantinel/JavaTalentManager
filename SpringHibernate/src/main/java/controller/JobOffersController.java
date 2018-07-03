@@ -36,7 +36,7 @@ public class JobOffersController {
 	@Autowired
 	private JobOfferFormValidator jobOfferValidator;
 
-	@InitBinder
+	@InitBinder("jobOffer")
 	protected void initBinder(WebDataBinder binder) {
 		binder.addValidators(jobOfferValidator);
 	}
@@ -146,15 +146,15 @@ public class JobOffersController {
 	}
 
 	@RequestMapping("/jobOffers/show/{id}")
-	public String showPerson(@PathVariable("id") long id, Model model) {
+	public String showJobOffer(@PathVariable("id") long id, Model model) {
 		JobOffers jobOffer = this.jobOffersService.getJobOfferById(id);
-		model.addAttribute("jobOffer", jobOffer);
+		model.addAttribute("showJobOffer", jobOffer);
 		model.addAttribute("qualifiedApplicants", this.applicantsService.getApplicantsForJobOffer(jobOffer));
 		return "showJobOffer";
 	}
 
 	@RequestMapping("/jobOffers/remove/{id}")
-	public String removePerson(@PathVariable("id") long id) {
+	public String removeJobOffer(@PathVariable("id") long id) {
 		this.jobOffersService.removeJobOffer(id);
 		return "redirect:/listJobOffers";
 	}

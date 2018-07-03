@@ -34,7 +34,7 @@ public class ApplicantsController {
 	@Autowired
 	private ApplicantFormValidator applicantValidator;
 
-	@InitBinder
+	@InitBinder("applicant")
 	protected void initBinder(WebDataBinder binder) {
 		binder.addValidators(applicantValidator);
 	}
@@ -130,15 +130,15 @@ public class ApplicantsController {
 	}
 
 	@RequestMapping("/applicants/show/{id}")
-	public String showPerson(@PathVariable("id") long id, Model model) {
+	public String showApplicant(@PathVariable("id") long id, Model model) {
 		Applicants applicant = this.applicantsService.getApplicantById(id);
-		model.addAttribute("applicant", applicant);
+		model.addAttribute("showApplicant", applicant);
 		model.addAttribute("qualifiedJobOffers", this.jobOffersService.getJobOffersForApplicant(applicant));
 		return "showApplicant";
 	}
 
 	@RequestMapping("/applicants/remove/{id}")
-	public String removePerson(@PathVariable("id") long id) {
+	public String removeApplicant(@PathVariable("id") long id) {
 		this.applicantsService.removeApplicant(id);
 		return "redirect:/listApplicants";
 	}

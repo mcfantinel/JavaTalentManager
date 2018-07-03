@@ -21,8 +21,7 @@
 		in the /WEB-INF/views directory -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- <beans:property name="viewClass" value="configuration.IntResourcesView" 
-			/> -->
+<!-- 		<beans:property name="viewClass" value="configuration.IntResourcesView" /> -->
 		<beans:property name="prefix" value="/WEB-INF/jsp/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>

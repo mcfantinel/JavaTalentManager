@@ -20,6 +20,26 @@
 <title>People-Ware - Add Applicant</title>
 </head>
 <body>
+<div id="header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">People-Ware Recruitment Web App</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a
+					href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
+				<li><a href="<c:url value='/jobOffers/listJobOffers' />">Job Offers</a></li>
+			</ul>
+
+		</div>
+		</nav>
+	</div>
+	
+	<br />
+	<br />
+	<br />
+	<br />
 	<div class="container">
 		<div class="well lead">Add Applicant</div>
 
@@ -170,35 +190,23 @@
 		</form:form>
 
 	</div>
-
-	<script type="text/javascript">
-		var skillCount = 1;
-
-		function escapeRegExp(str) {
-			return str.replace(/([.*+?^=!:{}()|\[\]\/\\])/g, "\\$&");
-		}
-
-		$("#btnAddSkill")
-				.click(
-						function() {
-							$("#skill_0").clone().attr("id",
-									"skill_" + skillCount).insertAfter(
-									"div.skill_class:last");
-							$("#skill_" + skillCount)
-									.html(
-											function(index, html) {
-												return html
-														.replace(
-																new RegExp(
-																		escapeRegExp("applicantSkills[0]"),
-																		'g'),
-																"applicantSkills["
-																		+ skillCount
-																		+ "]");
-											});
-							skillCount++;
-						});
-	</script>
+	
+	<br />
+	<br />
+	
+	<div id="footer">
+		<div class="clearfix">
+			<div id="connect">
+				<a href="#" target="_blank" class="facebook"></a> <a href="#"
+					target="_blank" class="googleplus"></a> <a href="#" target="_blank"
+					class="twitter"></a>
+			</div>
+			<p>© 2018 People-Ware. No Rights Reserved.</p>
+		</div>
+	</div>
+	
+	<br />
+	<br />
 
 </body>
 </html>

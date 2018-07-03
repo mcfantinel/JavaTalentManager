@@ -18,10 +18,32 @@
 <title>People-Ware - Show Applicant</title>
 </head>
 <body>
+	<div id="header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">People-Ware Recruitment Web App</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a
+					href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
+				<li><a href="<c:url value='/jobOffers/listJobOffers' />">Job
+						Offers</a></li>
+			</ul>
+
+		</div>
+		</nav>
+	</div>
+
+	<br />
+	<br />
+	<br />
+	<br />
+
 	<div class="container">
 		<div class="well lead">Show Applicant</div>
 
-		<form:form method="post" modelAttribute="applicant"
+		<form:form method="post" modelAttribute="showApplicant"
 			class="form-horizontal">
 			<form:input type="hidden" path="id" id="id" />
 
@@ -106,7 +128,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${applicant.applicantSkills}"
+						<c:forEach items="${showApplicant.applicantSkills}"
 							var="applicantSkills">
 							<tr>
 								<td>${applicantSkills.skill.skill}</td>
@@ -122,29 +144,46 @@
 			<div class="generic-container">
 				<div class="panel panel-default">
 					<!-- Default panel contents -->
-						<div class="panel-heading">
-							<span class="lead">Job Offers That Matches Applicant</span>
-						</div>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Job Offer</th>
-									<th>Company</th>
-									<th>Contact Number</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${qualifiedJobOffers}" var="qualifiedJobOffer">
-									<tr>
-										<td>${qualifiedJobOffer.jobOffer.name}</td>
-										<td>${qualifiedJobOffer.jobOffer.company.name}</td>
-										<td>${qualifiedJobOffer.jobOffer.company.phone}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+					<div class="panel-heading">
+						<span class="lead">Job Offers That Matches Applicant</span>
 					</div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Job Offer</th>
+								<th>Company</th>
+								<th>Contact Number</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${qualifiedJobOffers}" var="qualifiedJobOffer">
+								<tr>
+									<td>${qualifiedJobOffer.jobOffer.name}</td>
+									<td>${qualifiedJobOffer.jobOffer.company.name}</td>
+									<td>${qualifiedJobOffer.jobOffer.company.phone}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 
+			</div>
 		</div>
+	</div>
+
+
+	<br />
+	<br />
+
+	<div id="footer">
+		<div class="clearfix">
+			<div id="connect">
+				<a href="#" target="_blank" class="facebook"></a> <a href="#"
+					target="_blank" class="googleplus"></a> <a href="#" target="_blank"
+					class="twitter"></a>
+			</div>
+			<p>© 2018 People-Ware. No Rights Reserved.</p>
+		</div>
+	</div>
 </body>
 </html>
