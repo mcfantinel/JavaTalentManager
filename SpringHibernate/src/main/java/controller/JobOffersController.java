@@ -156,7 +156,7 @@ public class JobOffersController {
 	@RequestMapping("/jobOffers/remove/{id}")
 	public String removeJobOffer(@PathVariable("id") long id) {
 		this.jobOffersService.removeJobOffer(id);
-		return "redirect:/listJobOffers";
+		return "redirect:/jobOffers/listJobOffers";
 	}
 
 }

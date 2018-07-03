@@ -140,12 +140,8 @@ public class ApplicantsController {
 	@RequestMapping("/applicants/remove/{id}")
 	public String removeApplicant(@PathVariable("id") long id) {
 		this.applicantsService.removeApplicant(id);
-		return "redirect:/listApplicants";
+		return "redirect:/applicants/listApplicants";
 	}
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(Model model) {
-		return "test";
-	}
 
 }
