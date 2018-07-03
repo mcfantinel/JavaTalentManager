@@ -104,8 +104,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${jobOffer.jobOfferSkills}"
-							var="jobOfferSkills">
+						<c:forEach items="${jobOffer.jobOfferSkills}" var="jobOfferSkills">
 							<tr>
 								<td>${jobOfferSkills.skill.skill}</td>
 								<td>${jobOfferSkills.scale}</td>

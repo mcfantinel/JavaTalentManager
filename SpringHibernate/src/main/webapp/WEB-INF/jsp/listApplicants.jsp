@@ -55,7 +55,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="well">
+		<div class="well text-center">
 			<a href="<c:url value='/applicants/addApplicants' />" class="btn btn-default custom-width">New Applicant</a>
 		</div>
 	</div>

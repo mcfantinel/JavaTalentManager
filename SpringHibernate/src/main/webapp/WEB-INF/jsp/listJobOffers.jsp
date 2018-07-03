@@ -59,7 +59,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="well">
+		<div class="well text-center">
 			<a href="<c:url value='/jobOffers/addJobOffers' />" class="btn btn-default custom-width">New Job Offer</a>
 		</div>
 	</div>

@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +45,7 @@ public class JobOffers {
     @JoinColumn(name = "company_id", nullable = false)
 	private Companies company;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "job_offer_id", nullable = false)
 	private List<JobOffersSkills> jobOfferSkills;
 
