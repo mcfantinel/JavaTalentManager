@@ -78,15 +78,9 @@ public class ApplicantsController {
 	public String addApplicants(Model model) {
 		model.addAttribute("applicant", new Applicants());
 
-		Map<Long, String> academicDegreesList = new HashMap<>();
-		List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
-		for (AcademicDegrees a : academicDegrees) {
-			academicDegreesList.put(a.getId(), a.getName());
-		}
-		model.addAttribute("academicDegreesList", academicDegreesList);
+		model.addAttribute("academicDegreesList", getAcademicDegreesList());
 
-		List<Skills> skills = skillsService.listSkills();
-		model.addAttribute("skillsList", skills);
+		model.addAttribute("skillsList", getSkillsList());
 
 		return "addApplicants";
 	}
@@ -95,35 +89,15 @@ public class ApplicantsController {
 	public String addApplicants(@ModelAttribute("applicant") @Validated Applicants applicant,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			Map<Long, String> academicDegreesList = new HashMap<>();
-			List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
-			for (AcademicDegrees a : academicDegrees) {
-				academicDegreesList.put(a.getId(), a.getName());
-			}
-			model.addAttribute("academicDegreesList", academicDegreesList);
+			model.addAttribute("academicDegreesList", getAcademicDegreesList());
 
-			List<Skills> skills = skillsService.listSkills();
-			model.addAttribute("skillsList", skills);
+			model.addAttribute("skillsList", getSkillsList());
 			return "addApplicants";
 		}
 
-		List<ApplicantsSkills> applicantSkillsToRemove = new ArrayList<ApplicantsSkills>();
-		List<ApplicantsSkills> applicantSkills = applicant.getApplicantSkills();
-		for (int i = 0; i < applicantSkills.size(); i++) {
-			if (applicantSkills.get(i).getScale() == 0) {
-				applicantSkillsToRemove.add(applicantSkills.get(i));
-			}
-		}
-		applicant.getApplicantSkills().removeIf(x -> applicantSkillsToRemove.contains(x));
+		removeSkillsUnused(applicant);
 
 		this.applicantsService.addApplicant(applicant);
-//		if (applicant.getId() == 0) {
-//			// new person, add it
-//			this.applicantsService.addApplicant(applicant);
-//		} else {
-//			// existing person, call update
-//			this.applicantsService.updateApplicant(applicant);
-//		}
 
 		return "redirect:/applicants/listApplicants";
 
@@ -141,6 +115,31 @@ public class ApplicantsController {
 	public String removeApplicant(@PathVariable("id") long id) {
 		this.applicantsService.removeApplicant(id);
 		return "redirect:/applicants/listApplicants";
+	}
+	
+	private void removeSkillsUnused(Applicants applicant) {
+		List<ApplicantsSkills> applicantSkillsToRemove = new ArrayList<ApplicantsSkills>();
+		List<ApplicantsSkills> applicantSkills = applicant.getApplicantSkills();
+		for (int i = 0; i < applicantSkills.size(); i++) {
+			if (applicantSkills.get(i).getScale() == 0) {
+				applicantSkillsToRemove.add(applicantSkills.get(i));
+			}
+		}
+		applicant.getApplicantSkills().removeIf(x -> applicantSkillsToRemove.contains(x));
+	}
+
+	private Map<Long, String> getAcademicDegreesList() {
+		Map<Long, String> academicDegreesList = new HashMap<>();
+		List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
+		for (AcademicDegrees a : academicDegrees) {
+			academicDegreesList.put(a.getId(), a.getName());
+		}
+		return academicDegreesList;
+	}
+	
+	private List<Skills> getSkillsList() {
+		List<Skills> skills = skillsService.listSkills();
+		return skills;
 	}
 
 

@@ -87,22 +87,11 @@ public class JobOffersController {
 	public String addJobOffers(Model model) {
 		model.addAttribute("jobOffer", new JobOffers());
 
-		Map<Long, String> academicDegreesList = new HashMap<>();
-		List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
-		for (AcademicDegrees a : academicDegrees) {
-			academicDegreesList.put(a.getId(), a.getName());
-		}
-		model.addAttribute("academicDegreesList", academicDegreesList);
+		model.addAttribute("academicDegreesList", getAcademicDegreesList());
 
-		Map<Long, String> companiesList = new HashMap<>();
-		List<Companies> companies = companiesService.listCompanies();
-		for (Companies c : companies) {
-			companiesList.put(c.getId(), c.getName());
-		}
-		model.addAttribute("companiesList", companiesList);
+		model.addAttribute("companiesList", getCompaniesList());
 
-		List<Skills> skills = skillsService.listSkills();
-		model.addAttribute("skillsList", skills);
+		model.addAttribute("skillsList", getSkillsList());
 
 		return "addJobOffers";
 	}
@@ -111,36 +100,16 @@ public class JobOffersController {
 	public String addJobOffers(@ModelAttribute("jobOffer") @Validated JobOffers jobOffer, BindingResult bindingResult,
 			Model model) {
 		if (bindingResult.hasErrors()) {
-			Map<Long, String> academicDegreesList = new HashMap<>();
-			List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
-			for (AcademicDegrees a : academicDegrees) {
-				academicDegreesList.put(a.getId(), a.getName());
-			}
-			model.addAttribute("academicDegreesList", academicDegreesList);
-
-			List<Skills> skills = skillsService.listSkills();
-			model.addAttribute("skillsList", skills);
+			model.addAttribute("academicDegreesList", getAcademicDegreesList());
+			model.addAttribute("companiesList", getCompaniesList());
+			model.addAttribute("skillsList", getSkillsList());
 			return "addJobOffers";
 		}
 
-		List<JobOffersSkills> jobOfferSkillsToRemove = new ArrayList<JobOffersSkills>();
-		List<JobOffersSkills> jobOfferSkills = jobOffer.getJobOfferSkills();
-		for (int i = 0; i < jobOfferSkills.size(); i++) {
-			if (jobOfferSkills.get(i).getScale() == 0) {
-				jobOfferSkillsToRemove.add(jobOfferSkills.get(i));
-			}
-		}
-		jobOffer.getJobOfferSkills().removeIf(x -> jobOfferSkillsToRemove.contains(x));
+		removeSkillsUnused(jobOffer);
 
 		this.jobOffersService.addJobOffer(jobOffer);
-//		if (jobOffer.getId() == 0) {
-//			// new person, add it
-//			this.jobOffersService.addJobOffer(jobOffer);
-//		} else {
-//			// existing person, call update
-//			this.jobOffersService.updateJobOffer(jobOffer);
-//		}
-
+		
 		return "redirect:/jobOffers/listJobOffers";
 
 	}
@@ -158,5 +127,38 @@ public class JobOffersController {
 		this.jobOffersService.removeJobOffer(id);
 		return "redirect:/jobOffers/listJobOffers";
 	}
+	
+	private void removeSkillsUnused(JobOffers jobOffer) {
+		List<JobOffersSkills> jobOfferSkillsToRemove = new ArrayList<JobOffersSkills>();
+		List<JobOffersSkills> jobOfferSkills = jobOffer.getJobOfferSkills();
+		for (int i = 0; i < jobOfferSkills.size(); i++) {
+			if (jobOfferSkills.get(i).getScale() == 0) {
+				jobOfferSkillsToRemove.add(jobOfferSkills.get(i));
+			}
+		}
+		jobOffer.getJobOfferSkills().removeIf(x -> jobOfferSkillsToRemove.contains(x));
+	}
 
+	private Map<Long, String> getAcademicDegreesList() {
+		Map<Long, String> academicDegreesList = new HashMap<>();
+		List<AcademicDegrees> academicDegrees = academicDegreesService.listAcademicDegrees();
+		for (AcademicDegrees a : academicDegrees) {
+			academicDegreesList.put(a.getId(), a.getName());
+		}
+		return academicDegreesList;
+	}
+
+	private List<Skills> getSkillsList() {
+		List<Skills> skills = skillsService.listSkills();
+		return skills;
+	}
+
+	private Map<Long, String> getCompaniesList() {
+		Map<Long, String> companiesList = new HashMap<>();
+		List<Companies> companies = companiesService.listCompanies();
+		for (Companies c : companies) {
+			companiesList.put(c.getId(), c.getName());
+		}
+		return companiesList;
+	}
 }

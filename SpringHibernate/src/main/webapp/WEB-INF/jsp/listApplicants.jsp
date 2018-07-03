@@ -25,14 +25,12 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand">People-Ware Recruitment Web App</a>
+				<a href="<c:url value='/' />" class="navbar-brand">People-Ware Recruitment Web App</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a
-					href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
+				<li><a href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
 				<li><a href="<c:url value='/jobOffers/listJobOffers' />">Job Offers</a></li>
 			</ul>
-
 		</div>
 		</nav>
 	</div>
@@ -42,7 +40,7 @@
 	<br />
 	<br />
 
-	<div id="container">
+	<div class="container">
 		<div class="generic-container">
 			<div class="panel panel-default">
 				<div class="panel-heading">

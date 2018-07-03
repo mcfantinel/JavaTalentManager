@@ -10,23 +10,44 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>People-Ware Recruitment</title>
-<link href="./static/css/app.css" rel="stylesheet"></link>
 
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand">People-Ware Recruitment Web App</a>
+	<div id="header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="<c:url value='/' />" class="navbar-brand">People-Ware Recruitment Web App</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
+				<li><a href="<c:url value='/jobOffers/listJobOffers' />">Job Offers</a></li>
+			</ul>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="<c:url value='/applicants/listApplicants' />">Applicants</a></li>
-			<li><a href="<c:url value='/jobOffers/listJobOffers' />">Job Offers</a></li>
-		</ul>
-
+		</nav>
 	</div>
-	</nav>
 
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">People-Ware Recruitment App</h1>
+			<p>This webpage was developed by Manoel Capaverde as a recruitment management web app for People-Ware.</p>
+			<p>
+				<a class="btn btn-primary btn-lg" href="<c:url value='/applicants/addApplicants' />" role="button">New Applicants</a>
+				<a class="btn btn-primary btn-lg" href="<c:url value='/jobOffers/addJobOffers' />" role="button">New Job Offers</a>
+			</p>
+		</div>
+	</div>
+	
+	<br />
+	<br />
+
+	<div id="footer">
+		<div class="clearfix">
+			<p> © 2018 People-Ware. No Rights Reserved.</p>
+		</div>
+	</div>
+	<br />
+	<br />
 </body>
 
 </html>
